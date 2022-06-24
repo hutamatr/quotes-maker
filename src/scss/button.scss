@@ -1,0 +1,19 @@
+@import "./variables";
+
+.button {
+  padding: 0.5rem 1.5rem;
+  background-color: $dark-blue;
+  border-radius: 1.5rem;
+  color: $sky-blue;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+  box-shadow: $shadow;
+  margin: auto;
+
+  &:hover {
+    background-color: $sky-blue;
+    color: $dark-blue;
+    border: 2px solid $dark-blue;
+  }
+}

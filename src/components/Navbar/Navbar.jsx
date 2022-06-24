@@ -7,7 +7,9 @@ const Navbar = () => {
   return (
     <nav className="nav">
       <div className="nav__title">
-        <h1>Quotes Maker</h1>
+        <h1>
+          <span className="nav__title--font">"Quotes"</span>Maker.
+        </h1>
       </div>
       <ul className="nav__links">
         <li className="nav__link">

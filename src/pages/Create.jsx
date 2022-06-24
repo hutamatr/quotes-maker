@@ -3,7 +3,9 @@ import { v4 as uuidv4 } from "uuid";
 
 import Card from "../components/UI/Card";
 import Loading from "../components/UI/Loading";
+import Button from "../components/UI/Button";
 import QuotesContext from "../store/quotes-context";
+
 import "../scss/create.scss";
 
 const Create = () => {
@@ -53,19 +55,23 @@ const Create = () => {
 
   return (
     <section className="create">
-      <Card>
+      <Card className={"create__card"}>
         {isLoading ? (
           <Loading />
         ) : (
           <form onSubmit={formSubmitHandler} className="create__input">
-            <label htmlFor="author">Author :</label>
+            <label htmlFor="author" className="create__label">
+              Author :
+            </label>
             <input
               type="text"
               id="author"
               onChange={authorChangeHandler}
               value={quotesInput.author}
             />
-            <label htmlFor="quotes">Quotes :</label>
+            <label htmlFor="quotes" className="create__label">
+              Quotes :
+            </label>
             <textarea
               name="quotes"
               id="quotes"
@@ -74,7 +80,7 @@ const Create = () => {
               value={quotesInput.quotes}
               onChange={quotesChangeHandler}
             />
-            <button className="create__button">Submit</button>
+            <Button>Submit</Button>
           </form>
         )}
       </Card>

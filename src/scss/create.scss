@@ -3,6 +3,10 @@
 .create {
   padding: 0 1.5rem;
 
+  &__card {
+    background-color: $sky-blue;
+  }
+
   &__input {
     display: flex;
     flex-direction: column;
@@ -24,5 +28,11 @@
     color: $sky-blue;
     cursor: pointer;
     box-shadow: $shadow;
+  }
+
+  &__label {
+    font-family: $amatic;
+    font-size: 1.25rem;
+    font-weight: 700;
   }
 }

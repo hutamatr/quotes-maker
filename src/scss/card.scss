@@ -1,7 +1,6 @@
 @import "./variables";
 
 .card {
-  background-color: $light-grey;
   border-radius: 1rem;
   padding: 1rem;
   margin: 2rem auto;
@@ -12,5 +11,6 @@
 @media (min-width: 768px) {
   .card {
     max-width: 50%;
+    // min-height: 70vh;
   }
 }

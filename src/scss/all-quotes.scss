@@ -1,3 +1,48 @@
+@import "./variables";
+
 .all-quotes {
   padding: 0 1.5rem;
+
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin: 25vh auto;
+  }
+
+  &__empty {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    color: $dark-blue;
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    // align-items: center;
+    row-gap: 1rem;
+  }
+
+  &__content {
+    max-width: 65%;
+    text-align: start;
+
+    & h2 {
+      font-weight: 500;
+    }
+
+    & span {
+      font-weight: 300;
+    }
+  }
+
+  &__button {
+    display: flex;
+    align-self: flex-end;
+    column-gap: 1rem;
+  }
 }

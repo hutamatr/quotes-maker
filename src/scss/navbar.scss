@@ -8,12 +8,21 @@
   top: 0;
   width: 100%;
   padding: 1rem 3rem;
-  background-color: $dark-blue;
 
   &__title {
     font-weight: 500;
     font-size: 2rem;
-    color: $sky-blue;
+    color: $dark-blue;
+
+    &--font {
+      font-family: $amatic;
+      font-weight: 700;
+      background-color: $sky-blue;
+      padding: 0.5rem;
+      border: 1px solid $dark-blue;
+      margin-right: 0.2rem;
+      border-radius: 0.2rem;
+    }
   }
 
   &__links {
@@ -28,10 +37,17 @@
   &__link {
     font-size: 1rem;
     font-weight: 600;
-    color: $sky-blue;
+    color: $dark-blue;
+    transition: 0.5s;
 
     & a.active {
-      border-bottom: 0.25rem solid $light-grey;
+      border: 1px solid $dark-blue;
+      padding: 0.3rem;
+      background-color: $sky-blue;
+      // font-family: $amatic;
+      font-weight: 300;
+      // font-size: 1.25rem;
+      border-radius: 0.25rem;
     }
   }
 }
