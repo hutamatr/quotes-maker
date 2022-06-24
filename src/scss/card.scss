@@ -1,0 +1,16 @@
+@import "./variables";
+
+.card {
+  background-color: $light-grey;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin: 2rem auto;
+  box-shadow: $shadow;
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .card {
+    max-width: 50%;
+  }
+}

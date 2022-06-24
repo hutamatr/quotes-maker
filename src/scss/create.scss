@@ -1,0 +1,28 @@
+@import "./variables";
+
+.create {
+  padding: 0 1.5rem;
+
+  &__input {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+
+    & > input,
+    & > textarea {
+      border: 1px solid $dark-blue;
+      border-radius: 1rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  &__button {
+    background-color: $dark-blue;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    margin: auto;
+    color: $sky-blue;
+    cursor: pointer;
+    box-shadow: $shadow;
+  }
+}

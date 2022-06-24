@@ -1,0 +1,49 @@
+@import "../scss/variables.scss";
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  padding: 1rem 3rem;
+  background-color: $dark-blue;
+
+  &__title {
+    font-weight: 500;
+    font-size: 2rem;
+    color: $sky-blue;
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    row-gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  &__link {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $sky-blue;
+
+    & a.active {
+      border-bottom: 0.25rem solid $light-grey;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .nav {
+    justify-content: space-between;
+    flex-direction: row;
+
+    &__links {
+      flex-direction: row;
+      column-gap: 1.5rem;
+    }
+  }
+}
