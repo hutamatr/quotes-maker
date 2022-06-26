@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
+import { motion } from "framer-motion";
 
 import Card from "../components/UI/Card";
 import Button from "../components/UI/Button";
 import QuotesContext from "../store/quotes-context";
+import { animationDown } from "../components/UI/Animation";
 
 import "../scss/all-quotes.scss";
 
@@ -36,10 +38,16 @@ const AllQuotes = () => {
     <section className="all-quotes">
       <ul>
         {context.quotesList.length === 0 ? (
-          <div className="all-quotes__wrap">
+          <motion.div
+            className="all-quotes__wrap"
+            variants={animationDown}
+            initial="hidden"
+            animate="visible"
+            transition="visible"
+          >
             <h1 className="all-quotes__empty">Quotes Empty, create one?</h1>
             <Button type={"button"}>Create</Button>
-          </div>
+          </motion.div>
         ) : (
           quotesListContent
         )}
