@@ -4,7 +4,7 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Create from "./pages/Create";
 import AllQuotes from "./pages/AllQuotes";
-import Waves from "./components/UI/Waves";
+import QuotesDetails from "./pages/QuotesDetails";
 
 function App() {
   return (
@@ -23,11 +23,11 @@ function App() {
           <Route path={"/all-quotes"}>
             <AllQuotes />
           </Route>
+          <Route path="/all-quotes/:quotesId" exact>
+            <QuotesDetails />
+          </Route>
         </Switch>
       </main>
-      {/*       <footer>
-        <Waves />
-      </footer> */}
     </Fragment>
   );
 }

@@ -1,0 +1,11 @@
+@import "./variables";
+
+.quotes-details {
+  &__card {
+    background-color: $dark-blue;
+  }
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}

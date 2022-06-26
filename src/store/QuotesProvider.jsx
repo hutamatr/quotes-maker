@@ -3,6 +3,7 @@ import QuotesContext from "./quotes-context";
 
 const initQuotesItems = {
   quotesList: [],
+  quotesView: {},
 };
 
 const quotesReducer = (state, action) => {
@@ -11,6 +12,7 @@ const quotesReducer = (state, action) => {
       const updatedQuotes = state.quotesList.concat(action.payload);
       console.log(updatedQuotes);
       return {
+        ...state,
         quotesList: updatedQuotes,
       };
     case "REMOVE_QUOTES":
@@ -18,7 +20,17 @@ const quotesReducer = (state, action) => {
         (item) => item.id !== action.payload
       );
       return {
+        ...state,
         quotesList: removedQuotes,
+      };
+    case "VIEW_QUOTES":
+      const quotesView = state.quotesList.find((item) => {
+        return item.id === action.payload;
+      });
+
+      return {
+        ...state,
+        quotesView,
       };
     default:
       return initQuotesItems;
@@ -39,10 +51,15 @@ const QuotesProvider = ({ children }) => {
     dispatchQuotes({ type: "REMOVE_QUOTES", payload: id });
   };
 
+  const viewQuotesHandler = (id) => {
+    dispatchQuotes({ type: "VIEW_QUOTES", payload: id });
+  };
   const value = {
     quotesList: quotesState.quotesList,
+    quotesView: quotesState.quotesView,
     addQuotes: addQuotesHandler,
     removeQuotes: removeQuotesHandler,
+    viewQuotes: viewQuotesHandler,
   };
 
   return (

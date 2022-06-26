@@ -37,6 +37,11 @@ const Navbar = () => {
             Create Quotes
           </NavLink>
         </li>
+        {/* <li className="nav__link">
+          <NavLink activeClassName="active" to={"/quotes-details"}>
+            Quotes Details
+          </NavLink>
+        </li> */}
       </motion.ul>
     </nav>
   );

@@ -15,6 +15,10 @@ const AllQuotes = () => {
     context.removeQuotes(id);
   };
 
+  const viewQuotesHandler = (id) => {
+    context.viewQuotes(id);
+  };
+
   const quotesListContent = context.quotesList.map((quotes) => {
     return (
       <Card key={quotes.id}>
@@ -24,7 +28,9 @@ const AllQuotes = () => {
             <span>- {quotes.author}</span>
           </div>
           <div className="all-quotes__button">
-            <Button>View</Button>
+            <Button onClick={viewQuotesHandler.bind(this, quotes.id)}>
+              View
+            </Button>
             <Button onClick={deleteQuotesHandler.bind(this, quotes.id)}>
               Delete
             </Button>

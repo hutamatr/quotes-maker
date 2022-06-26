@@ -4,9 +4,16 @@ import Card from "../components/UI/Card";
 import QuotesContext from "../store/quotes-context";
 
 const QuotesDetails = () => {
-  const context = useContext(QuotesContext);
+  const { quotesView } = useContext(QuotesContext);
 
-  return <Card></Card>;
+  return (
+    <Card className={"quotes-details__card"}>
+      <div className="quotes-details__wrapper">
+        <p>{quotesView.quotes}</p>
+        <span>{quotesView.author}</span>
+      </div>
+    </Card>
+  );
 };
 
 export default QuotesDetails;
