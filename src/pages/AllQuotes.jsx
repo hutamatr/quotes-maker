@@ -1,63 +1,56 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import Card from "../components/UI/Card";
 import Button from "../components/UI/Button";
+import QuotesList from "../components/Quotes/AllQuotesList";
 import QuotesContext from "../store/quotes-context";
 import { animationDown } from "../components/UI/Animation";
 
 import "../scss/all-quotes.scss";
 
 const AllQuotes = () => {
-  const context = useContext(QuotesContext);
+  const { removeQuotes, viewQuotes, quotesList } = useContext(QuotesContext);
 
   const deleteQuotesHandler = (id) => {
-    context.removeQuotes(id);
+    removeQuotes(id);
   };
 
   const viewQuotesHandler = (id) => {
-    context.viewQuotes(id);
+    viewQuotes(id);
   };
 
-  const quotesListContent = context.quotesList.map((quotes) => {
+  const quotesListContent = quotesList.map((quotes) => {
     return (
-      <Card key={quotes.id}>
-        <li className="all-quotes__link">
-          <div className="all-quotes__content">
-            <h2>"{quotes.quotes}"</h2>
-            <span>- {quotes.author}</span>
-          </div>
-          <div className="all-quotes__button">
-            <Button onClick={viewQuotesHandler.bind(this, quotes.id)}>
-              View
-            </Button>
-            <Button onClick={deleteQuotesHandler.bind(this, quotes.id)}>
-              Delete
-            </Button>
-          </div>
-        </li>
-      </Card>
+      <QuotesList
+        key={quotes.id}
+        id={quotes.id}
+        quotes={quotes.quotes}
+        author={quotes.author}
+        onViewQuotes={viewQuotesHandler}
+        onDeleteQuotes={deleteQuotesHandler}
+      />
     );
   });
 
   return (
     <section className="all-quotes">
-      <ul>
-        {context.quotesList.length === 0 ? (
-          <motion.div
-            className="all-quotes__wrap"
-            variants={animationDown}
-            initial="hidden"
-            animate="visible"
-            transition="visible"
-          >
-            <h1 className="all-quotes__empty">Quotes Empty, create one?</h1>
+      {quotesList.length === 0 ? (
+        <motion.div
+          className="all-quotes__wrap"
+          variants={animationDown}
+          initial="hidden"
+          animate="visible"
+          transition="visible"
+        >
+          <h1 className="all-quotes__empty">Quotes Empty, create one?</h1>
+          <Link to="/create-quotes">
             <Button type={"button"}>Create</Button>
-          </motion.div>
-        ) : (
-          quotesListContent
-        )}
-      </ul>
+          </Link>
+        </motion.div>
+      ) : (
+        quotesListContent
+      )}
     </section>
   );
 };

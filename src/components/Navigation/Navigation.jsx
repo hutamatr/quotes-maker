@@ -1,25 +1,27 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import { animationDown } from "../UI/Animation";
 
-import "../../scss/navbar.scss";
+import "../../scss/navigation.scss";
 
 const Navbar = () => {
   return (
     <nav className="nav">
-      <motion.div
-        className="nav__title"
-        variants={animationDown}
-        initial="hidden"
-        animate="visible"
-        transition="visible"
-      >
-        <h1>
-          <span className="nav__title--font">"Quotes"</span>Maker.
-        </h1>
-      </motion.div>
+      <Link to="/">
+        <motion.div
+          className="nav__title"
+          variants={animationDown}
+          initial="hidden"
+          animate="visible"
+          transition="visible"
+        >
+          <h1>
+            <span className="nav__title--font">"Quotes"</span>Maker.
+          </h1>
+        </motion.div>
+      </Link>
       <motion.ul
         className="nav__links"
         variants={animationDown}
@@ -33,15 +35,10 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li className="nav__link">
-          <NavLink activeClassName="active" to={"/create"}>
+          <NavLink activeClassName="active" to={"/create-quotes"}>
             Create Quotes
           </NavLink>
         </li>
-        {/* <li className="nav__link">
-          <NavLink activeClassName="active" to={"/quotes-details"}>
-            Quotes Details
-          </NavLink>
-        </li> */}
       </motion.ul>
     </nav>
   );

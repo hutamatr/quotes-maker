@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, Fragment } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import Card from "../components/UI/Card";
@@ -6,7 +6,7 @@ import Loading from "../components/UI/Loading";
 import Button from "../components/UI/Button";
 import QuotesContext from "../store/quotes-context";
 
-import "../scss/create.scss";
+import "../scss/create-quotes.scss";
 
 const Create = () => {
   const [quotesInput, setQuotesInput] = useState({
@@ -15,7 +15,7 @@ const Create = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const context = useContext(QuotesContext);
+  const { addQuotes } = useContext(QuotesContext);
 
   const id = uuidv4();
 
@@ -30,7 +30,7 @@ const Create = () => {
       ...quotesInput,
       id,
     };
-    context.addQuotes(newQuotes);
+    addQuotes(newQuotes);
 
     setQuotesInput({
       author: "",
@@ -38,7 +38,7 @@ const Create = () => {
     });
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 1000);
   };
 
   const quotesChangeHandler = (event) => {
@@ -54,12 +54,15 @@ const Create = () => {
   };
 
   return (
-    <section className="create">
+    <div className="create">
       <Card className={"create__card"}>
         {isLoading ? (
-          <Loading />
+          <Fragment>
+            <Loading />
+            <span className="create__success">Quotes Created!</span>
+          </Fragment>
         ) : (
-          <form onSubmit={formSubmitHandler} className="create__input">
+          <form onSubmit={formSubmitHandler} className="create__form">
             <label htmlFor="author" className="create__label">
               Author :
             </label>
@@ -80,11 +83,12 @@ const Create = () => {
               value={quotesInput.quotes}
               onChange={quotesChangeHandler}
             />
+
             <Button>Submit</Button>
           </form>
         )}
       </Card>
-    </section>
+    </div>
   );
 };
 

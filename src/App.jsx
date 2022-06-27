@@ -1,34 +1,29 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 
-import Navbar from "./components/Navbar/Navbar";
-import Create from "./pages/Create";
+import Layout from "./components/Layout/Layout";
+import Create from "./pages/CreateQuotes";
 import AllQuotes from "./pages/AllQuotes";
-import QuotesDetails from "./pages/QuotesDetails";
+import QuotesDetails from "./pages/DetailsQuotes";
 
 function App() {
   return (
-    <Fragment>
-      <header>
-        <Navbar />
-      </header>
-      <main>
-        <Switch>
-          <Route path={"/"} exact>
-            <Redirect to="/all-quotes" />
-          </Route>
-          <Route path={"/create"}>
-            <Create />
-          </Route>
-          <Route path={"/all-quotes"}>
-            <AllQuotes />
-          </Route>
-          <Route path="/all-quotes/:quotesId" exact>
-            <QuotesDetails />
-          </Route>
-        </Switch>
-      </main>
-    </Fragment>
+    <Layout>
+      <Switch>
+        <Route path="/" exact>
+          <Redirect to="/all-quotes" />
+        </Route>
+        <Route path="/create-quotes">
+          <Create />
+        </Route>
+        <Route path="/all-quotes" exact>
+          <AllQuotes />
+        </Route>
+        <Route path="/all-quotes/:quotesId">
+          <QuotesDetails />
+        </Route>
+      </Switch>
+    </Layout>
   );
 }
 

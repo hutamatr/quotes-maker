@@ -1,11 +1,39 @@
 @import "./variables";
 
 .quotes-details {
+  padding: 0 1.5rem;
   &__card {
     background-color: $dark-blue;
+    padding: 1.5rem;
   }
   &__wrapper {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 1.5rem;
+
+    & p {
+      font-size: 1.5rem;
+      color: $sky-blue;
+      text-align: center;
+      margin: 1.5rem 0;
+    }
+
+    & span {
+      color: $sky-blue;
+      text-align: end;
+      font-size: 1rem;
+      align-self: flex-end;
+    }
+  }
+
+  &--no-found {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $dark-blue;
+    text-align: center;
+    margin: 25vh auto;
+    display: block;
   }
 }

@@ -7,16 +7,23 @@
     background-color: $sky-blue;
   }
 
-  &__input {
+  &__form {
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
 
     & > input,
     & > textarea {
-      border: 1px solid $dark-blue;
-      border-radius: 1rem;
+      border: 2px solid $dark-blue;
+      // box-shadow: $shadow;
+      border-radius: 0.25rem;
       padding: 0.5rem 1rem;
+      // background-color: $very-light-grey;
+      color: $dark-blue;
+    }
+
+    & a {
+      margin: auto;
     }
   }
 
@@ -34,5 +41,13 @@
     font-family: $amatic;
     font-size: 1.25rem;
     font-weight: 700;
+  }
+
+  &__success {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: $dark-blue;
+    display: block;
   }
 }

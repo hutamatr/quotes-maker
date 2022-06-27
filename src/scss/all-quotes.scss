@@ -3,6 +3,10 @@
 .all-quotes {
   padding: 0 1.5rem;
 
+  &__card {
+    background-color: $sky-blue;
+  }
+
   &__wrap {
     display: flex;
     flex-direction: column;
@@ -30,13 +34,17 @@
   &__content {
     max-width: 65%;
     text-align: start;
+    color: $dark-blue;
 
     & h2 {
       font-weight: 500;
+      font-size: 1.2rem;
     }
 
     & span {
       font-weight: 300;
+
+      font-size: 0.9rem;
     }
   }
 
