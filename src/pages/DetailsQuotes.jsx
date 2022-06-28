@@ -14,6 +14,8 @@ const QuotesDetails = () => {
 
   const { quotesId } = useParams();
 
+  // const quotes = quotesList.find((item) => item.id === quotesId);
+
   if (quotesView.id !== quotesId) {
     return (
       <motion.span

@@ -1,0 +1,9 @@
+@import "./variables";
+
+.not-found {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: $dark-blue;
+  margin: 25vh auto;
+  text-align: center;
+}

@@ -5,9 +5,7 @@ import Navigation from "../Navigation/Navigation";
 const layout = ({ children }) => {
   return (
     <Fragment>
-      <header>
-        <Navigation />
-      </header>
+      <Navigation />
       <main>{children}</main>
     </Fragment>
   );

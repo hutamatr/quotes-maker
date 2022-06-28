@@ -10,6 +10,7 @@ const loading = () => {
         <div className="loading__line"></div>
         <div className="loading__line"></div>
       </div>
+      <span className="loading__success">Quotes Created!</span>
     </div>
   );
 };

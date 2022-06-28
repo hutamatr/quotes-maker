@@ -1,4 +1,4 @@
-import React, { useState, useContext, Fragment } from "react";
+import React, { useState, useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import Card from "../components/UI/Card";
@@ -38,7 +38,7 @@ const Create = () => {
     });
     setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 1500);
   };
 
   const quotesChangeHandler = (event) => {
@@ -57,10 +57,7 @@ const Create = () => {
     <div className="create">
       <Card className={"create__card"}>
         {isLoading ? (
-          <Fragment>
-            <Loading />
-            <span className="create__success">Quotes Created!</span>
-          </Fragment>
+          <Loading />
         ) : (
           <form onSubmit={formSubmitHandler} className="create__form">
             <label htmlFor="author" className="create__label">
