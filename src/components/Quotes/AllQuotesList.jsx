@@ -1,31 +1,77 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { Fragment } from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
 
 import Card from "../UI/Card";
 import Button from "../UI/Button";
+import SortQuotes from "./SortQuotes";
 
-const QuotesList = ({ id, quotes, author, onViewQuotes, onDeleteQuotes }) => {
+const sortQuotes = (quotes, ascending) => {
+  return quotes.sort((quoteA, quoteB) => {
+    if (ascending) {
+      // return quoteA.date > quoteB.date ? 1 : -1;
+      return new Date(quoteA.date) - new Date(quoteB.date);
+    } else {
+      // return quoteA.date < quoteB.date ? 1 : -1;
+      return new Date(quoteB.date) - new Date(quoteA.date);
+    }
+  });
+};
+
+const QuotesList = ({ quotesList, onViewQuotes, onDeleteQuotes }) => {
+  // Make query parameters for sort ascending/descending
+
+  const history = useHistory();
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+
+  const isSortedQuotesList = queryParams.get("sort") === "asc";
+
+  const sortedQuotes = sortQuotes(quotesList, isSortedQuotesList);
+
   return (
-    <Card className={"all-quotes__card"}>
+    <Fragment>
+      {sortedQuotes.length > 1 && (
+        <SortQuotes
+          onHistory={history}
+          onLocation={location.pathname}
+          onSortedQuotesList={isSortedQuotesList}
+        />
+      )}
       <ul>
-        <li className="all-quotes__link">
-          <div className="all-quotes__content">
-            <h2>"{quotes}"</h2>
-            <span>- {author}</span>
-          </div>
-          <div className="all-quotes__button">
-            <Link to={`/all-quotes/${id}`}>
-              <Button type={"button"} onClick={onViewQuotes.bind(this, id)}>
-                View
-              </Button>
-            </Link>
-            <Button type={"button"} onClick={onDeleteQuotes.bind(this, id)}>
-              Delete
-            </Button>
-          </div>
-        </li>
+        {sortedQuotes.map((quotes) => {
+          return (
+            <Card className={"all-quotes__card"} key={quotes.id}>
+              <li className="all-quotes__link">
+                <div className="all-quotes__content">
+                  <h2>"{quotes.quotes}"</h2>
+                  <span>- {quotes.author}</span>
+                </div>
+                <div className="all-quotes__button">
+                  <span>{quotes.date}</span>
+                  <div className="all-quotes__button--wrap">
+                    <Link to={`/all-quotes/${quotes.id}`}>
+                      <Button
+                        type={"button"}
+                        onClick={onViewQuotes.bind(this, quotes.id)}
+                      >
+                        View
+                      </Button>
+                    </Link>
+                    <Button
+                      type={"button"}
+                      onClick={onDeleteQuotes.bind(this, quotes.id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </div>
+              </li>
+            </Card>
+          );
+        })}
       </ul>
-    </Card>
+    </Fragment>
   );
 };
 

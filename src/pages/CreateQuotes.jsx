@@ -1,14 +1,15 @@
 import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 import Card from "../components/UI/Card";
 import Loading from "../components/UI/Loading";
-import Button from "../components/UI/Button";
+import CreateQuoteForm from "../components/Quotes/CreateQuoteForm";
 import QuotesContext from "../store/quotes-context";
 
 import "../scss/create-quotes.scss";
 
-const Create = () => {
+const CreateQuotes = () => {
   const [quotesInput, setQuotesInput] = useState({
     author: "",
     quotes: "",
@@ -17,7 +18,20 @@ const Create = () => {
 
   const { addQuotes } = useContext(QuotesContext);
 
+  const history = useHistory();
+
   const id = uuidv4();
+
+  const date = new Date().toLocaleString(undefined, {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    weekday: "long",
+    hour: "2-digit",
+    hour12: false,
+    minute: "2-digit",
+    second: "2-digit",
+  });
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
@@ -29,6 +43,7 @@ const Create = () => {
     const newQuotes = {
       ...quotesInput,
       id,
+      date,
     };
     addQuotes(newQuotes);
 
@@ -38,7 +53,8 @@ const Create = () => {
     });
     setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+      history.push("/all-quotes");
+    }, 1200);
   };
 
   const quotesChangeHandler = (event) => {
@@ -59,34 +75,16 @@ const Create = () => {
         {isLoading ? (
           <Loading />
         ) : (
-          <form onSubmit={formSubmitHandler} className="create__form">
-            <label htmlFor="author" className="create__label">
-              Author :
-            </label>
-            <input
-              type="text"
-              id="author"
-              onChange={authorChangeHandler}
-              value={quotesInput.author}
-            />
-            <label htmlFor="quotes" className="create__label">
-              Quotes :
-            </label>
-            <textarea
-              name="quotes"
-              id="quotes"
-              cols="10"
-              rows="5"
-              value={quotesInput.quotes}
-              onChange={quotesChangeHandler}
-            />
-
-            <Button>Submit</Button>
-          </form>
+          <CreateQuoteForm
+            onFormSubmit={formSubmitHandler}
+            onAuthorChange={authorChangeHandler}
+            onQuotesChange={quotesChangeHandler}
+            onQuotesInput={quotesInput}
+          />
         )}
       </Card>
     </div>
   );
 };
 
-export default Create;
+export default CreateQuotes;

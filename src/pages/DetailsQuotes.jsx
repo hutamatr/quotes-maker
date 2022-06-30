@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Route, useParams } from "react-router-dom";
+import { Route, useParams, useRouteMatch, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import Card from "../components/UI/Card";
@@ -13,6 +13,8 @@ const QuotesDetails = () => {
   const { quotesView } = useContext(QuotesContext);
 
   const { quotesId } = useParams();
+
+  const { path, url } = useRouteMatch();
 
   // const quotes = quotesList.find((item) => item.id === quotesId);
 
@@ -37,7 +39,12 @@ const QuotesDetails = () => {
           <span>- {quotesView.author}</span>
         </div>
       </Card>
-      <Route path={`/all-quotes/${quotesId}/comments`}>
+      <Route path={path} exact>
+        <div className="quotes-details--center">
+          <Link to={`${url}/comments`}>Load Comment</Link>
+        </div>
+      </Route>
+      <Route path={`${path}/comments`}>
         <Comments />
       </Route>
     </section>
