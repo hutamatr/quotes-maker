@@ -1,11 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 import Card from "../components/UI/Card";
 import Loading from "../components/UI/Loading";
 import CreateQuoteForm from "../components/Quotes/CreateQuoteForm";
-import QuotesContext from "../store/quotes-context";
+// import QuotesContext from "../store/quotes-context";
+import useAxios from "../hooks/use-axios";
+import { createQuotes } from "../lib/API";
 
 import "../scss/create-quotes.scss";
 
@@ -15,10 +17,20 @@ const CreateQuotes = () => {
     quotes: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-
-  const { addQuotes } = useContext(QuotesContext);
-
   const history = useHistory();
+
+  const { sendRequest, status } = useAxios(createQuotes);
+
+  useEffect(() => {
+    if (status === "completed") {
+      setTimeout(() => {
+        setIsLoading(false);
+        history.push("/all-quotes");
+      }, 1500);
+    }
+  }, [history, status]);
+
+  // const { addQuotes } = useContext(QuotesContext);
 
   const id = uuidv4();
 
@@ -41,20 +53,17 @@ const CreateQuotes = () => {
     setIsLoading(true);
 
     const newQuotes = {
-      ...quotesInput,
       id,
       date,
+      ...quotesInput,
     };
-    addQuotes(newQuotes);
+    // addQuotes(newQuotes);
+    sendRequest(newQuotes);
 
     setQuotesInput({
       author: "",
       quotes: "",
     });
-    setTimeout(() => {
-      setIsLoading(false);
-      history.push("/all-quotes");
-    }, 1200);
   };
 
   const quotesChangeHandler = (event) => {

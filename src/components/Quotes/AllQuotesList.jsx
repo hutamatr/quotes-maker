@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 
 import Card from "../UI/Card";
 import Button from "../UI/Button";
@@ -18,6 +18,8 @@ const sortQuotes = (quotes, ascending) => {
 };
 
 const QuotesList = ({ quotesList, onViewQuotes, onDeleteQuotes }) => {
+  const { url } = useRouteMatch();
+
   // Make query parameters for sort ascending/descending
 
   const history = useHistory();
@@ -50,7 +52,7 @@ const QuotesList = ({ quotesList, onViewQuotes, onDeleteQuotes }) => {
                 <div className="all-quotes__button">
                   <span>{quotes.date}</span>
                   <div className="all-quotes__button--wrap">
-                    <Link to={`/all-quotes/${quotes.id}`}>
+                    <Link to={`${url}/${quotes.id}`}>
                       <Button
                         type={"button"}
                         onClick={onViewQuotes.bind(this, quotes.id)}

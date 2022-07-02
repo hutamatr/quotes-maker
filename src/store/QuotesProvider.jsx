@@ -54,6 +54,7 @@ const QuotesProvider = ({ children }) => {
   const viewQuotesHandler = (id) => {
     dispatchQuotes({ type: "VIEW_QUOTES", payload: id });
   };
+
   const value = {
     quotesList: quotesState.quotesList,
     quotesView: quotesState.quotesView,
