@@ -1,30 +1,50 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 
 import QuotesList from "../components/Quotes/AllQuotesList";
 import QuotesEmpty from "../components/Quotes/QuotesEmpty";
 import QuotesContext from "../store/quotes-context";
 import useAxios from "../hooks/use-axios";
-import { getAllQuotes } from "../lib/API";
+import { getAllQuotes, putQuotes } from "../lib/API";
 import Loading from "../components/UI/Loading";
 
 import "../scss/all-quotes.scss";
 
 const AllQuotes = () => {
-  const { removeQuotes, viewQuotes, quotesList } = useContext(QuotesContext);
+  const [newQuotesDelete, setNewQuotesDelete] = useState([]);
+  const { removeQuotes, viewQuotes } = useContext(QuotesContext);
 
   const {
     sendRequest,
     status,
-    data: loadedQuotes,
+    data: quotesData,
     error,
   } = useAxios(getAllQuotes, true);
+
+  const { sendRequest: putRequest } = useAxios(putQuotes);
 
   useEffect(() => {
     sendRequest();
   }, [sendRequest]);
 
   const deleteQuotesHandler = (id) => {
-    removeQuotes(id);
+    const quotesFilter = quotesData.filter((item) => {
+      return item.id !== id;
+    });
+    const newQuotes = Object.assign(
+      {},
+      ...quotesFilter.map((item) => ({
+        [item.id]: {
+          quotes: item.quotes,
+          author: item.author,
+          date: item.date,
+        },
+      }))
+    );
+    console.log(newQuotes);
+
+    putRequest(newQuotes);
+
+    // removeQuotes(id);
   };
 
   const viewQuotesHandler = (id) => {
@@ -41,12 +61,11 @@ const AllQuotes = () => {
 
   return (
     <section className="all-quotes">
-      {(status === "completed" && !loadedQuotes) ||
-      loadedQuotes.length === 0 ? (
+      {(status === "completed" && !quotesData) || quotesData.length === 0 ? (
         <QuotesEmpty />
       ) : (
         <QuotesList
-          quotesList={loadedQuotes}
+          quotesList={quotesData}
           onViewQuotes={viewQuotesHandler}
           onDeleteQuotes={deleteQuotesHandler}
         />

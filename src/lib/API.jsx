@@ -10,10 +10,12 @@ export const getAllQuotes = async () => {
   });
 
   if (response.status !== 200) {
-    throw new Error(response.statusText);
+    throw new Error("Failed Get Data");
   }
 
   const data = await response.data;
+
+  console.log(data);
 
   const dataQuotes = [];
 
@@ -37,6 +39,39 @@ export const createQuotes = async (quotesData) => {
   });
   if (response.status !== 200) {
     throw new Error("Failed create quotes");
+  }
+
+  return null;
+};
+
+export const getSingleQuote = async (quoteId) => {
+  const response = await axios({
+    method: "get",
+    url: `${BASE_URL}/quotes/${quoteId}.json`,
+  });
+  const data = await response.data;
+
+  if (response.status !== 200) {
+    throw new Error("Could not fetch quote.");
+  }
+
+  const loadedQuote = {
+    id: quoteId,
+    ...data,
+  };
+
+  return loadedQuote;
+};
+
+export const putQuotes = async (quotesData) => {
+  const response = await axios({
+    method: "put",
+    url: `${BASE_URL}/quotes.json`,
+    data: JSON.stringify(quotesData),
+  });
+
+  if (response.status !== 200) {
+    throw new Error("Failed sent quotes");
   }
 
   return null;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 
 import Card from "../components/UI/Card";
 import Loading from "../components/UI/Loading";
@@ -32,8 +31,6 @@ const CreateQuotes = () => {
 
   // const { addQuotes } = useContext(QuotesContext);
 
-  const id = uuidv4();
-
   const date = new Date().toLocaleString(undefined, {
     year: "numeric",
     month: "2-digit",
@@ -53,7 +50,6 @@ const CreateQuotes = () => {
     setIsLoading(true);
 
     const newQuotes = {
-      id,
       date,
       ...quotesInput,
     };
