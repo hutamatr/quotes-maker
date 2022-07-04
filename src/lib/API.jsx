@@ -15,8 +15,6 @@ export const getAllQuotes = async () => {
 
   const data = await response.data;
 
-  console.log(data);
-
   const dataQuotes = [];
 
   for (const key in data) {
@@ -35,7 +33,7 @@ export const createQuotes = async (quotesData) => {
   const response = await axios({
     method: "post",
     url: `${BASE_URL}/quotes.json`,
-    data: JSON.stringify(quotesData),
+    data: quotesData,
   });
   if (response.status !== 200) {
     throw new Error("Failed create quotes");
@@ -67,7 +65,7 @@ export const putQuotes = async (quotesData) => {
   const response = await axios({
     method: "put",
     url: `${BASE_URL}/quotes.json`,
-    data: JSON.stringify(quotesData),
+    data: quotesData,
   });
 
   if (response.status !== 200) {

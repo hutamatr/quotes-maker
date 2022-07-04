@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 
 import QuotesList from "../components/Quotes/AllQuotesList";
 import QuotesEmpty from "../components/Quotes/QuotesEmpty";
@@ -10,24 +10,30 @@ import Loading from "../components/UI/Loading";
 import "../scss/all-quotes.scss";
 
 const AllQuotes = () => {
-  const [newQuotesDelete, setNewQuotesDelete] = useState([]);
-  const { removeQuotes, viewQuotes } = useContext(QuotesContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const { viewQuotes } = useContext(QuotesContext);
 
   const {
-    sendRequest,
-    status,
-    data: quotesData,
-    error,
+    sendRequest: getRequest,
+    status: getStatus,
+    data: getQuotesData,
+    error: getError,
   } = useAxios(getAllQuotes, true);
 
-  const { sendRequest: putRequest } = useAxios(putQuotes);
+  const { sendRequest: putRequest, status: putStatus } = useAxios(putQuotes);
 
   useEffect(() => {
-    sendRequest();
-  }, [sendRequest]);
+    getRequest();
+    if (putStatus === "completed") {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
+  }, [getRequest, putStatus]);
 
   const deleteQuotesHandler = (id) => {
-    const quotesFilter = quotesData.filter((item) => {
+    setIsLoading(true);
+    const quotesFilter = getQuotesData.filter((item) => {
       return item.id !== id;
     });
     const newQuotes = Object.assign(
@@ -40,32 +46,32 @@ const AllQuotes = () => {
         },
       }))
     );
-    console.log(newQuotes);
 
     putRequest(newQuotes);
-
-    // removeQuotes(id);
   };
 
   const viewQuotesHandler = (id) => {
     viewQuotes(id);
   };
 
-  if (status === "pending") {
-    return <Loading />;
+  if (getStatus === "pending" || putStatus === "pending") {
+    return <Fragment>{isLoading && <Loading />}</Fragment>;
   }
 
-  if (error) {
-    return <p>{error}</p>;
+  if (getError) {
+    return <p className="all-quotes__error">{getError}</p>;
   }
 
   return (
     <section className="all-quotes">
-      {(status === "completed" && !quotesData) || quotesData.length === 0 ? (
-        <QuotesEmpty />
+      {(getStatus === "completed" && !getQuotesData) ||
+      getQuotesData.length === 0 ? (
+        <Fragment>
+          <QuotesEmpty />
+        </Fragment>
       ) : (
         <QuotesList
-          quotesList={quotesData}
+          quotesList={getQuotesData}
           onViewQuotes={viewQuotesHandler}
           onDeleteQuotes={deleteQuotesHandler}
         />

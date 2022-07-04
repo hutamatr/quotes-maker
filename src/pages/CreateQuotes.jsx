@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import Card from "../components/UI/Card";
 import Loading from "../components/UI/Loading";
 import CreateQuoteForm from "../components/Quotes/CreateQuoteForm";
-// import QuotesContext from "../store/quotes-context";
 import useAxios from "../hooks/use-axios";
 import { createQuotes } from "../lib/API";
 
@@ -18,18 +17,17 @@ const CreateQuotes = () => {
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
 
-  const { sendRequest, status } = useAxios(createQuotes);
+  const { sendRequest: createRequest, status: createStatus } =
+    useAxios(createQuotes);
 
   useEffect(() => {
-    if (status === "completed") {
+    if (createStatus === "completed") {
       setTimeout(() => {
         setIsLoading(false);
         history.push("/all-quotes");
       }, 1500);
     }
-  }, [history, status]);
-
-  // const { addQuotes } = useContext(QuotesContext);
+  }, [history, createStatus]);
 
   const date = new Date().toLocaleString(undefined, {
     year: "numeric",
@@ -53,8 +51,7 @@ const CreateQuotes = () => {
       date,
       ...quotesInput,
     };
-    // addQuotes(newQuotes);
-    sendRequest(newQuotes);
+    createRequest(newQuotes);
 
     setQuotesInput({
       author: "",
