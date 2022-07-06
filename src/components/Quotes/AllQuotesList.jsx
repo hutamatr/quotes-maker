@@ -8,16 +8,14 @@ import SortQuotes from "./SortQuotes";
 const sortQuotes = (quotes, ascending) => {
   return quotes.sort((quoteA, quoteB) => {
     if (ascending) {
-      // return quoteA.date > quoteB.date ? 1 : -1;
       return new Date(quoteA.date) - new Date(quoteB.date);
     } else {
-      // return quoteA.date < quoteB.date ? 1 : -1;
       return new Date(quoteB.date) - new Date(quoteA.date);
     }
   });
 };
 
-const QuotesList = ({ quotesList, onViewQuotes, onDeleteQuotes }) => {
+const QuotesList = ({ quotesList, onDeleteQuotes }) => {
   const { url } = useRouteMatch();
 
   // Make query parameters for sort ascending/descending
@@ -53,12 +51,7 @@ const QuotesList = ({ quotesList, onViewQuotes, onDeleteQuotes }) => {
                   <span>{quotes.date}</span>
                   <div className="all-quotes__button--wrap">
                     <Link to={`${url}/${quotes.id}`}>
-                      <Button
-                        type={"button"}
-                        onClick={onViewQuotes.bind(this, quotes.id)}
-                      >
-                        View
-                      </Button>
+                      <Button type={"button"}>View</Button>
                     </Link>
                     <Button
                       type={"button"}

@@ -32,9 +32,11 @@
   }
 
   &__content {
-    max-width: 65%;
-    text-align: start;
     color: $dark-blue;
+
+    @media (max-width: 640px) {
+      text-align: center;
+    }
 
     & h2 {
       font-weight: 500;
@@ -67,7 +69,7 @@
     }
   }
 
-  &__error {
+  &--error {
     text-align: center;
     font-size: 1.25rem;
     font-weight: 600;

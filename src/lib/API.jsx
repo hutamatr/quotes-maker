@@ -47,11 +47,12 @@ export const getSingleQuote = async (quoteId) => {
     method: "get",
     url: `${BASE_URL}/quotes/${quoteId}.json`,
   });
-  const data = await response.data;
 
   if (response.status !== 200) {
     throw new Error("Could not fetch quote.");
   }
+
+  const data = await response.data;
 
   const loadedQuote = {
     id: quoteId,
@@ -73,4 +74,47 @@ export const putQuotes = async (quotesData) => {
   }
 
   return null;
+};
+
+export const createComments = async (commentData) => {
+  const response = await axios({
+    method: "post",
+    url: `${BASE_URL}/comments/${commentData.quotesId}.json`,
+    data: commentData.comment,
+  });
+
+  console.log(commentData.quoteId, commentData.comment);
+
+  if (response.status !== 200) {
+    throw new Error("Failed sent comment");
+  }
+
+  const data = await response.data;
+
+  return { commentId: data.name };
+};
+
+export const getComments = async (quotesId) => {
+  const response = await axios({
+    method: "get",
+    url: `${BASE_URL}/comments/${quotesId}.json`,
+  });
+
+  if (response.status !== 200) {
+    throw new Error("Failed get comment data");
+  }
+
+  const data = await response.data;
+
+  const responseCommentData = [];
+
+  for (const key in data) {
+    const newComments = {
+      id: key,
+      ...data[key],
+    };
+    responseCommentData.push(newComments);
+  }
+
+  return responseCommentData;
 };

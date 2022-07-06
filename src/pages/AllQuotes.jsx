@@ -1,8 +1,8 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import QuotesList from "../components/Quotes/AllQuotesList";
 import QuotesEmpty from "../components/Quotes/QuotesEmpty";
-import QuotesContext from "../store/quotes-context";
+
 import useAxios from "../hooks/use-axios";
 import { getAllQuotes, putQuotes } from "../lib/API";
 import Loading from "../components/UI/Loading";
@@ -11,7 +11,6 @@ import "../scss/all-quotes.scss";
 
 const AllQuotes = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { viewQuotes } = useContext(QuotesContext);
 
   const {
     sendRequest: getRequest,
@@ -50,16 +49,12 @@ const AllQuotes = () => {
     putRequest(newQuotes);
   };
 
-  const viewQuotesHandler = (id) => {
-    viewQuotes(id);
-  };
-
   if (getStatus === "pending" || putStatus === "pending") {
     return <Fragment>{isLoading && <Loading />}</Fragment>;
   }
 
   if (getError) {
-    return <p className="all-quotes__error">{getError}</p>;
+    return <p className="all-quotes--error">{getError}</p>;
   }
 
   return (
@@ -72,7 +67,6 @@ const AllQuotes = () => {
       ) : (
         <QuotesList
           quotesList={getQuotesData}
-          onViewQuotes={viewQuotesHandler}
           onDeleteQuotes={deleteQuotesHandler}
         />
       )}
