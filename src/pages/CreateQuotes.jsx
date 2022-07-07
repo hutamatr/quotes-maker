@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 import Card from "../components/UI/Card";
@@ -16,7 +16,7 @@ const CreateQuotes = () => {
     quotes: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { sendRequest: createRequest, status: createStatus } =
     useAxios(createQuotes);
@@ -25,10 +25,10 @@ const CreateQuotes = () => {
     if (createStatus === "completed") {
       setTimeout(() => {
         setIsLoading(false);
-        history.push("/all-quotes");
+        navigate(-1);
       }, 1500);
     }
-  }, [history, createStatus]);
+  }, [navigate, createStatus]);
 
   const date = moment().format("dddd MMMM DD YYYY, h:mm:ss a");
 

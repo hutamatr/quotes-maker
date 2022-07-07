@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link, useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import Card from "../UI/Card";
 import Button from "../UI/Button";
@@ -16,11 +16,9 @@ const sortQuotes = (quotes, ascending) => {
 };
 
 const QuotesList = ({ quotesList, onDeleteQuotes }) => {
-  const { url } = useRouteMatch();
-
   // Make query parameters for sort ascending/descending
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const queryParams = new URLSearchParams(location.search);
@@ -33,8 +31,7 @@ const QuotesList = ({ quotesList, onDeleteQuotes }) => {
     <Fragment>
       {sortedQuotes.length > 1 && (
         <SortQuotes
-          onHistory={history}
-          onLocation={location.pathname}
+          onNavigate={navigate}
           onSortedQuotesList={isSortedQuotesList}
         />
       )}
@@ -50,7 +47,7 @@ const QuotesList = ({ quotesList, onDeleteQuotes }) => {
                 <div className="all-quotes__button">
                   <span>{quotes.date}</span>
                   <div className="all-quotes__button--wrap">
-                    <Link to={`${url}/${quotes.id}`}>
+                    <Link to={quotes.id}>
                       <Button type={"button"}>View</Button>
                     </Link>
                     <Button

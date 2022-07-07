@@ -4,13 +4,11 @@ import Button from "../UI/Button";
 
 import "../../scss/sort-quotes.scss";
 
-const SortQuotes = ({ onHistory, onLocation, onSortedQuotesList }) => {
+const SortQuotes = ({ onNavigate, onSortedQuotesList }) => {
   const sortButtonHandler = () => {
-    onHistory.push({
-      pathname: onLocation,
+    onNavigate({
       search: `?sort=${onSortedQuotesList ? "desc" : "asc"}`,
     });
-    // onHistory.push(`${onLocation}?sort=${onSortedQuotesList ? "desc" : "asc"}`);
   };
 
   return (

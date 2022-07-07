@@ -1,9 +1,13 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
 import "../../scss/card.scss";
 
-const Card = ({ className, children }) => {
-  return <section className={`card ${className}`}>{children}</section>;
-};
+const Card = forwardRef(({ className, children }, ref) => {
+  return (
+    <section className={`card ${className}`} ref={ref}>
+      {children}
+    </section>
+  );
+});
 
 export default Card;

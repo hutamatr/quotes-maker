@@ -32,6 +32,10 @@ const CommentsForm = ({ quotesId, onComment }) => {
   const submitCommentsHandler = (event) => {
     event.preventDefault();
 
+    if (newComment.length === 0) {
+      return;
+    }
+
     const commentData = {
       quotesId,
       comment: {

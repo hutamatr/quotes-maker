@@ -31,12 +31,18 @@ const Navbar = () => {
           transition="visible"
         >
           <li className="nav__link">
-            <NavLink activeClassName="active" to={"/all-quotes"}>
+            <NavLink
+              className={(activeLink) => (activeLink.isActive ? "active" : "")}
+              to={"/all-quotes"}
+            >
               All Quotes
             </NavLink>
           </li>
           <li className="nav__link">
-            <NavLink activeClassName="active" to={"/create-quotes"}>
+            <NavLink
+              className={(activeLink) => (activeLink.isActive ? "active" : "")}
+              to={"/create-quotes"}
+            >
               Create Quotes
             </NavLink>
           </li>

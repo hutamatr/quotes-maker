@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
-import { Route, useParams, useRouteMatch, Link } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
+import { Outlet, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
+import { exportToPNG } from "../components/UI/ExportToPNG";
 import Card from "../components/UI/Card";
-import Comments from "../components/Comments/Comments";
 import Loading from "../components/UI/Loading";
+import Button from "../components/UI/Button";
 import { animationDown } from "../components/UI/Animation";
 import useAxios from "../hooks/use-axios";
 import { getSingleQuote } from "../lib/API";
@@ -13,6 +14,8 @@ import "../scss/quotes-details.scss";
 
 const QuotesDetails = () => {
   const { quotesId } = useParams();
+
+  const ref = useRef();
 
   const {
     sendRequest: singleQuoteRequest,
@@ -25,7 +28,9 @@ const QuotesDetails = () => {
     singleQuoteRequest(quotesId);
   }, [singleQuoteRequest, quotesId]);
 
-  const { path, url } = useRouteMatch();
+  const downloadQuotesHandler = () => {
+    exportToPNG(ref.current, quotesId);
+  };
 
   // const quotes = quotesList.find((item) => item.id === quotesId);
 
@@ -51,20 +56,21 @@ const QuotesDetails = () => {
 
   return (
     <section className="quotes-details">
-      <Card className={"quotes-details__card"}>
-        <div className="quotes-details__wrapper">
-          <p>"{singleQuoteData.quotes}"</p>
-          <span>- {singleQuoteData.author}</span>
-        </div>
-      </Card>
-      <Route path={path} exact>
-        <div className="quotes-details--center">
-          <Link to={`${url}/comments`}>Load Comment</Link>
-        </div>
-      </Route>
-      <Route path={`${path}/comments`}>
-        <Comments quotesId={quotesId} />
-      </Route>
+      <div style={{ padding: ".5rem 0" }} ref={ref}>
+        <Card className={"quotes-details__card"}>
+          <div className="quotes-details__wrapper">
+            <p>"{singleQuoteData.quotes}"</p>
+            <span>- {singleQuoteData.author}</span>
+          </div>
+        </Card>
+      </div>
+      <Button
+        className={"quotes-details__button"}
+        onClick={downloadQuotesHandler}
+      >
+        Download
+      </Button>
+      <Outlet />
     </section>
   );
 };

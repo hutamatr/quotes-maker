@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from "react";
-import { Prompt } from "react-router-dom";
 
 import Button from "../UI/Button";
 
@@ -21,12 +20,12 @@ const CreateQuoteForm = ({
 
   return (
     <Fragment>
-      <Prompt
+      {/* <Prompt
         when={formIsEntering}
         message={
           "Are you sure leaving this page? all entering quotes will be lost"
         }
-      />
+      /> */}
       <form
         onFocus={focusFormHandler}
         onSubmit={onFormSubmit}
