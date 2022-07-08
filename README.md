@@ -29,7 +29,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: [Quotes Maker App](quotes-maker.vercel.app)
+- Live Site URL: [Quotes Maker App](https://quotes-maker.vercel.app)
 
 ## My process
 
