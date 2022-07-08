@@ -56,7 +56,7 @@ const QuotesDetails = () => {
 
   return (
     <section className="quotes-details">
-      <div style={{ padding: ".5rem 0" }} ref={ref}>
+      <div style={{ padding: ".5rem" }} ref={ref}>
         <Card className={"quotes-details__card"}>
           <div className="quotes-details__wrapper">
             <p>"{singleQuoteData.quotes}"</p>

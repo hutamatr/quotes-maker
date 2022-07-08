@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 
 import Button from "../UI/Button";
 
@@ -8,29 +8,9 @@ const CreateQuoteForm = ({
   onQuotesChange,
   onQuotesInput,
 }) => {
-  const [formIsEntering, setFormIsEntering] = useState(false);
-
-  const buttonSubmitFocusHandler = () => {
-    setFormIsEntering(false);
-  };
-
-  const focusFormHandler = () => {
-    setFormIsEntering(true);
-  };
-
   return (
     <Fragment>
-      {/* <Prompt
-        when={formIsEntering}
-        message={
-          "Are you sure leaving this page? all entering quotes will be lost"
-        }
-      /> */}
-      <form
-        onFocus={focusFormHandler}
-        onSubmit={onFormSubmit}
-        className="create__form"
-      >
+      <form onSubmit={onFormSubmit} className="create__form">
         <label htmlFor="author" className="create__label">
           Author :
         </label>
@@ -52,7 +32,7 @@ const CreateQuoteForm = ({
           onChange={onQuotesChange}
         />
 
-        <Button onClick={buttonSubmitFocusHandler}>Submit</Button>
+        <Button>Submit</Button>
       </form>
     </Fragment>
   );

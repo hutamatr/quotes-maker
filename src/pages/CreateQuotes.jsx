@@ -25,7 +25,7 @@ const CreateQuotes = () => {
     if (createStatus === "completed") {
       setTimeout(() => {
         setIsLoading(false);
-        navigate(-1);
+        navigate("/all-quotes");
       }, 1500);
     }
   }, [navigate, createStatus]);
